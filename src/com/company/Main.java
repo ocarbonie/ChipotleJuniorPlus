@@ -20,131 +20,76 @@ public class Main {
         ArrayList<String>burritoAssembler = new ArrayList<>();
         ArrayList<String> extraIng = new ArrayList<>();
         String [] riceArr = {"white rice", "brown rice", "no rice"};
+        String [] meatArr = {"chicken meat","steak meat","carnidas meat","chorizo meat","sofritas meat","veggies no meat"};
+        String [] beansArr = {"pinto beans", "black beans", "no beans"};
+        String[] salsaArr = {"mild salsa", "medium salsa", "hot salsa", "no salsa", "all salsa"};
+        String[] veggiesArr = {"lettuce", "fajita", "all veggies", "no veggies at all"};
+        String[] cheeseArr = {"cheese", "no cheese"};
+        String[] guacArr = {"guac", "no guac"};
+        String[] quesoArr = {"queso", "no queso"};
+        String[] sourArr = {"sour cream", "no sour cream"};
 
-        //This is an ArrayList of all the possible ingredients
-        //Let's get the rice option
-        burritoAssembler.add(riceOptions());
+        //Here are all the possible ingredients
+        burritoAssembler.add(ingOption(riceArr));
+        burritoAssembler.add(ingOption(meatArr));
+        burritoAssembler.add(ingOption(beansArr));
+        burritoAssembler.add(ingOption(salsaArr));
+        burritoAssembler.add(ingOption(veggiesArr));
+        burritoAssembler.add(ingOption(cheeseArr));
+        burritoAssembler.add(ingOption(guacArr));
+        burritoAssembler.add(ingOption(quesoArr));
+        burritoAssembler.add(ingOption(sourArr));
 
-        //Let's get the meat option
-        burritoAssembler.add(meatOptions());
-
-        //Let's get the beans option
-        burritoAssembler.add(beansOptions());
-
-        //Let's get the Salsa option
-        burritoAssembler.add(salsaOptions());
-
-        //Let's get the Veggies option
-        burritoAssembler.add(veggiesOptions());
-
-        //Let's get the cheese option
-        burritoAssembler.add(cheeseOptions());
-
-        //Let's get the queso option
-        burritoAssembler.add(quesoOptions());
-
-        //Let's get the  guac option
-        burritoAssembler.add(guacOptions());
-
-        //Let's get the sour cream option
-        burritoAssembler.add(sourCreamOptions());
-
-        //This is the first five ingredients of the burrito; I'll put them in their own arrayList
-        String A = riceOptions();
-        String B = meatOptions();
-        String C = beansOptions();
-        String D = salsaOptions();
-        String E = veggiesOptions();
-
-
-        firstFive.add(A);
-        firstFive.add(B);
-        firstFive.add(C);
-        firstFive.add(D);
-        firstFive.add(E);
-
-        System.out.print(A +", " + B + ", " + C + ", " + D + ", " + E);
+        //Here are the first five ingredients
+        for(int i = 0; i < 5 ; i++){
+            firstFive.add(burritoAssembler.get(i));
+        }
+        System.out.print(firstFive.get(0)+", " + firstFive.get(1) + ", " + firstFive.get(2) +
+                ", " + firstFive.get(3) + ", " + firstFive.get(4));
 
         //how many extra ingredients are we going to have after the original ingredients?
         int randNumber = randomNumber(burritoAssembler.size());  //This will randomly choose how many more ingredients
 
-        for (int i = 0; i<randNumber ; i++ ){
-            extraIng.add(burritoAssembler.get(randomNumber(randNumber)));
-            extraIng.remove("no rice");
-            extraIng.remove("no salsa");
-            extraIng.remove("no beans");
-            extraIng.remove("no queso");
-            extraIng.remove("no sour cream");
-            extraIng.remove("no cheese");
-            extraIng.remove("no guac");
-            extraIng.remove("no veggies at all");
+        //Let's get a list of those extra ingredients
+        for (int i = 0; i <randNumber ; i++ ){
+            extraIng.add(burritoAssembler.get(i));
         }
+
+        //It wouldn't make sense to have certain extra ingredients, let's remove them.
+        cleanup(extraIng);
+
 
         //Adding the extra ingredients to the list of ingredients
         for(String s: extraIng){
             System.out.print(", " + s);
         }
 
-        //pricing
-        firstFive.remove("no rice");
-        firstFive.remove("no salsa");
-        firstFive.remove("no beans");
-        firstFive.remove("no queso");
-        firstFive.remove("no sour cream");
-        firstFive.remove("no cheese");
-        firstFive.remove("no guac");
-        firstFive.remove("no veggies at all");
+        //Cleaning up the firstFive array before asking for the price
+        cleanup(firstFive);
+
+        //Let's find the price
         System.out.print("\nPrice of Burrito: " + (burritoPrice(firstFive) + (burritoPrice(extraIng)-3.00)));
     }
 
-    public static String riceOptions(){
-        String [] riceArr = {"white rice", "brown rice", "no rice"};
-        return riceArr[randomNumber(riceArr.length)];
-
-    }
-
-    public static String meatOptions(){
-        String [] meatArr = {"chicken meat","steak meat","carnidas meat","chorizo meat","sofritas meat","veggies no meat"};
-        return meatArr[randomNumber(meatArr.length)];
-    }
-
-    public static String beansOptions(){
-        String [] beansArr = {"pinto beans", "black beans", "no beans"};
-        return beansArr[randomNumber(beansArr.length)];
-    }
-
-    public static String salsaOptions() {
-        String[] salsaArr = {"mild salsa", "medium salsa", "hot salsa", "no salsa", "all salsa"};
-        return salsaArr[randomNumber(salsaArr.length)];
-    }
-
-    public static String veggiesOptions() {
-        String[] veggiesArr = {"lettuce", "fajita", "all veggies", "no veggies at all"};
-        return veggiesArr[randomNumber(veggiesArr.length)];
-    }
-    public static String cheeseOptions() {
-        String[] cheeseArr = {"cheese", "no cheese"};
-        return cheeseArr[randomNumber(cheeseArr.length)];
-    }
-
-    public static String guacOptions() {
-        String[] guacArr = {"guac", "no guac"};
-        return guacArr[randomNumber(guacArr.length)];
-    }
-
-    public static String quesoOptions() {
-        String[] quesoArr = {"queso", "no queso"};
-        return quesoArr[randomNumber(quesoArr.length)];
-    }
-
-    public static String sourCreamOptions() {
-        String[] quesoArr = {"sour cream", "no sour cream"};
-        return quesoArr[randomNumber(quesoArr.length)];
+    public static String ingOption(String [] m){
+        return m[randomNumber(m.length)];
     }
 
     public static int randomNumber(int bnd){
         Random rnd = new Random();
         return (rnd.nextInt(bnd));
+    }
+
+    public static ArrayList cleanup(ArrayList<String>m){
+        m.remove("no rice");
+        m.remove("no salsa");
+        m.remove("no beans");
+        m.remove("no queso");
+        m.remove("no sour cream");
+        m.remove("no cheese");
+        m.remove("no guac");
+        m.remove("no veggies at all");
+        return m;
     }
 
     public static double burritoPrice(ArrayList<String>m){
